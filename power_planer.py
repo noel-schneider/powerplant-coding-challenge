@@ -115,4 +115,4 @@ if __name__ == '__main__':
 # TODO: Improve structure of the scripts
 # TODO: Improve flexibility of types in functions ('int' -> ('float' | 'int') )
 # TODO: Do more tests on responses. Is the response the optimal solution?
-# TODO: Improve data structures for plants (avoid copy )
+# TODO: Improve data structures for plants (avoid copy in function call)
