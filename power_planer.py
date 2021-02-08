@@ -1,12 +1,7 @@
 import json
+from typing import Optional
 
 CONVERTER = {'gasfired': 'gas(euro/MWh)', 'turbojet': 'kerosine(euro/MWh)'}
-
-
-def get_payload():
-    with open('example_payloads/payload2.json') as f:
-        data = json.load(f)
-    return data
 
 
 def get_loads_for_wind_plants(wind_plants: list, required_load: int, wind_percentage: int):
@@ -71,8 +66,8 @@ def get_best_plant_index(plants: list):
     return index
 
 
-def main():
-    data = get_payload()
+def compute_optimal_loads(payload: Optional[dict]):
+    data = payload
     required_load = data['load']
 
     # Prioritizing wind plants because of free use
@@ -101,18 +96,8 @@ def main():
     for plant in non_free_plants:
         response.append({'name': plant['name'], 'p': 0})
 
-    print(required_load)
-    print(response)
-
-    with open('response.json', 'w') as outfile:
-        json.dump(response, outfile)
+    return response
 
 
 if __name__ == '__main__':
-    main()
-
-# TODO: Generalize wind plants and other plants. The logic can be generalized in case wind plants use becomes not free
-# TODO: Improve structure of the scripts
-# TODO: Improve flexibility of types in functions ('int' -> ('float' | 'int') )
-# TODO: Do more tests on responses. Is the response the optimal solution?
-# TODO: Improve data structures for plants (avoid copy in function call)
+    compute_optimal_loads()
